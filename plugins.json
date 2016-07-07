@@ -1,0 +1,8 @@
+{
+  "awsm-lambda": {
+    "source": "git@github.com:awsm/awsm-lambda.git"
+  },
+  "awsm-crypto": {
+    "source": "git@github.com:awsm/awsm-crypto.git"
+  }
+}
