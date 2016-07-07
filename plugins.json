@@ -13,5 +13,8 @@
   },
   "awsm-exec": {
     "source": "git@github.com:awsm/awsm-exec.git"
+  },
+  "awsm-plugins": {
+    "source": "git@github.com:awsm/awsm-plugins.git"
   }
 }
