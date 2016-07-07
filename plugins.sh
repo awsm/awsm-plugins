@@ -9,6 +9,14 @@ function pad {
   printf '    '
 }
 
+function fail {
+  local message=$1
+  if [ -n "$message" ]; then
+    echo $message
+  fi
+  exit 1
+}
+
 function install {
   local plugin=$1
   local source=$(curl $AWSM_PLUGINS_HOST_URL 2>/dev/null | jq -r -S ".\"$plugin\".source")
@@ -16,7 +24,7 @@ function install {
     echo -e "Installing $plugin from $source"
     cd $AWSM_PLUGINS_DIR
     if [ -d "$plugin" ]; then
-      echo "Error: $plugin already installed"
+      fail "Error: $plugin already installed"
     else
       git clone $source $plugin
       echo "$plugin successfully installed"
@@ -30,7 +38,7 @@ function uninstall {
     echo -e "Uninstalling $plugin"
     cd $AWSM_PLUGINS_DIR
     if [ ! -d "$plugin" ]; then
-      echo "Error: $plugin not installed"
+      fail "Error: $plugin not installed"
     else
       rm -r $plugin
       echo "$plugin successfully uninstalled"
