@@ -29,11 +29,11 @@ function uninstall {
   if [ -n "$plugin" ]; then
     echo -e "Uninstalling $plugin"
     cd $AWSM_PLUGINS_DIR
-    if [ -d "$plugin" ]; then
-      echo "Error: $plugin already installed"
+    if [ ! -d "$plugin" ]; then
+      echo "Error: $plugin not installed"
     else
-      git clone $source $plugin
-      echo "$plugin successfully installed"
+      rm -r $plugin
+      echo "$plugin successfully uninstalled"
     fi
   fi
 }
