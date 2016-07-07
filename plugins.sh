@@ -40,7 +40,7 @@ function uninstall {
     if [ ! -d "$plugin" ]; then
       fail "Error: $plugin not installed"
     else
-      rm -r $plugin
+      cd $plugin && rm -rf * && cd .. && rm -rf $plugin
       echo "$plugin successfully uninstalled"
     fi
   fi
