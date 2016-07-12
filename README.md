@@ -8,6 +8,7 @@ Install AWSM plugins simply!
 Plugins live in ~/.awsm/plugins as a collection of folders (typically git repositories). To install `awsm-plugins` and use it to install other plugins, run the following:
 
 ```
+brew install jq
 mkdir -p ~/.awsm/plugins
 git clone git@github.com:awsm/awsm-plugins.git ~/.awsm/plugins/awsm-plugins
 ```
