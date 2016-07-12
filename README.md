@@ -9,7 +9,7 @@ Plugins live in ~/.awsm/plugins as a collection of folders (typically git reposi
 
 ```
 mkdir -p ~/.awsm/plugins
-git clone git@github.com:awsm/awsm-plugins.git ~/.awsm/plugins/
+git clone git@github.com:awsm/awsm-plugins.git ~/.awsm/plugins/awsm-plugins
 ```
 
 #### List
