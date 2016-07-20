@@ -1,20 +1,20 @@
 {
-  "awsm-lambda": {
+  "lambda": {
     "source": "git@github.com:awsm/awsm-lambda.git"
   },
-  "awsm-crypto": {
+  "crypto": {
     "source": "git@github.com:awsm/awsm-crypto.git"
   },
-  "awsm-profiles": {
+  "profiles": {
     "source": "git@github.com:awsm/awsm-profiles.git"
   },
-  "awsm-env-local": {
+  "env-local": {
     "source": "git@github.com:awsm/awsm-env-local.git"
   },
-  "awsm-exec": {
+  "exec": {
     "source": "git@github.com:awsm/awsm-exec.git"
   },
-  "awsm-plugins": {
+  "plugins": {
     "source": "git@github.com:awsm/awsm-plugins.git"
   }
 }
