@@ -19,14 +19,15 @@ function fail {
 
 function install {
   local plugin=$1
-  local source=$(curl $AWSM_PLUGINS_HOST_URL 2>/dev/null | jq -r -S ".\"$plugin\".source")
+  local source_name=awsm-$plugin
+  local source=$(curl $AWSM_PLUGINS_HOST_URL 2>/dev/null | jq -r -S ".\"$source_name\".source")
   if [ -n "$source" ]; then
     echo -e "Installing $plugin from $source"
     cd $AWSM_PLUGINS_DIR
-    if [ -d "$plugin" ]; then
+    if [ -d "$source_name" ]; then
       fail "Error: $plugin already installed"
     else
-      git clone $source $plugin
+      git clone $source $source_name
       echo "$plugin successfully installed"
     fi
   fi
@@ -34,13 +35,14 @@ function install {
 
 function uninstall {
   local plugin=$1
+  local source_name=awsm-$plugin
   if [ -n "$plugin" ]; then
     echo -e "Uninstalling $plugin"
     cd $AWSM_PLUGINS_DIR
-    if [ ! -d "$plugin" ]; then
+    if [ ! -d "$source_name" ]; then
       fail "Error: $plugin not installed"
     else
-      cd $plugin && rm -rf * && cd .. && rm -rf $plugin
+      cd $source_name && rm -rf * && cd .. && rm -rf $source_name
       echo "$plugin successfully uninstalled"
     fi
   fi
@@ -60,14 +62,15 @@ function check_plugin {
   local base_rev=$(git merge-base @ @{u})
 
   local base=$(basename `pwd`)
+  local plugin=${base#awsm-}
   if [ $local_rev = $remove_rev ]; then
-      echo "$base Up to date"
+      echo "$plugin is up to date"
   elif [ $local_rev = $base_rev ]; then
-      echo "$base Update available"
+      echo "$plugin has update available"
   elif [ $remove_rev = $base_rev ]; then
-      echo "$base Need to push"
+      echo "$plugin need to be pushed"
   else
-      echo "$base Diverged"
+      echo "$plugin has diverged"
   fi
 }
 
@@ -78,6 +81,8 @@ function check {
   fi
 
   local plugin=$1
+  local source_name=awsm-$plugin
+
   if [ "$plugin" == "--all" ]; then
     echo "Checking all"
     cd "$AWSM_PLUGINS_DIR"
@@ -87,12 +92,12 @@ function check {
       fi
     done
   else
-    local plugin_dir="$AWSM_PLUGINS_DIR/$plugin"
+    local plugin_dir="$AWSM_PLUGINS_DIR/$source_name"
     if [ -d "$plugin_dir" ]; then
       cd "$plugin_dir"
       check_plugin "$plugin_dir"
     else
-      echo "Error: no such plugin $plugin"
+      echo "Error: $plugin not found"
     fi
   fi
 }
