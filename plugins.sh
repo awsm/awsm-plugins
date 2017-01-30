@@ -20,7 +20,7 @@ function fail {
 function install {
   local plugin=$1
   local source_name=awsm-$plugin
-  local source=$(curl $AWSM_PLUGINS_HOST_URL 2>/dev/null | jq -r -S ".\"$source_name\".source")
+  local source=$(curl $AWSM_PLUGINS_HOST_URL 2>/dev/null | jq -r -S ".\"$plugin\".source")
   if [ -n "$source" ]; then
     echo -e "Installing $plugin from $source"
     cd $AWSM_PLUGINS_DIR
